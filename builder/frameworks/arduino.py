@@ -86,6 +86,12 @@ libs.append(env.BuildLibrary(
     src_filter=["+<*.c>", "+<*.cpp>"]
 ))
 
+libs.append(env.BuildLibrary(
+    join("$BUILD_DIR", "arduino", "libcore"),
+    join(FRAMEWORK_LIB_DIR, "arduino", "src", "libcore"),
+    src_filter=["+<*.c>", "+<*.cpp>"]
+))
+
 middlewares = env.GetProjectOption("middlewares","")
 if(middlewares):
     for x in middlewares.split(","):
