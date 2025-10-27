@@ -32,13 +32,15 @@ def get_linker_script():
 
     sys.stderr.write("Warning! Cannot find a linker script for the required board! "+ldscript)
 
+project_dir = env.subst("${PROJECT_DIR}")
 
 env.Append(
     CPPPATH=[
         join(FRAMEWORK_LIB_DIR, "cmsis", "cm4", "core_support"),
         join(FRAMEWORK_LIB_DIR, "cmsis", "cm4", "device_support"),
         join(FRAMEWORK_LIB_DIR, "drivers", "inc"),
-        join(FRAMEWORK_LIB_DIR, "drivers", "src")
+        join(FRAMEWORK_LIB_DIR, "drivers", "src"),
+        join(project_dir, "include"),
     ]
 )
 
