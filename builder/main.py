@@ -128,12 +128,25 @@ AlwaysBuild(target_size)
 # Target: Upload by default .bin file
 #
 
+debug_tools = env.BoardConfig().get("debug.tools", {})
 upload_protocol = env.subst("$UPLOAD_PROTOCOL")
+debug_server = debug_tools.get(upload_protocol, {}).get("server")
 debug_tools = board.get("debug.tools", {})
 upload_source = target_firm
 upload_actions = []
 
-if upload_protocol in debug_tools:
+if debug_server and debug_server.get("package") == "tool-pyocd":
+    env.Replace(
+        UPLOADER=join(platform.get_package_dir("tool-pyocd") or "",
+                      "pyocd.py"),
+        UPLOADERFLAGS=['load'] + debug_server.get("arguments", [])[1:],
+        UPLOADCMD='"$PYTHONEXE" "$UPLOADER" $UPLOADERFLAGS $SOURCE'
+    )
+    upload_actions = [
+        env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
+    ]
+
+elif upload_protocol in debug_tools:
     openocd_args = [
         "-d%d" % (2 if int(ARGUMENTS.get("PIOVERBOSE", 0)) else 1)
     ]
@@ -186,7 +199,7 @@ elif upload_protocol == "dfu":
                 "-p %s" % pid,
                 "-d 0xffff", "-a", "$TARGET"
             ]), "Adding dfu suffix to ${PROGNAME}.bin"))
-    
+
     env.Replace(
         UPLOADER=_upload_tool,
         UPLOADERFLAGS=_upload_flags,
