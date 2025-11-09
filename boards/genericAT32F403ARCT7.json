@@ -6,14 +6,15 @@
     "mcu": "AT32F403ARCT7",
     "product_line": "AT32F403AxC",
     "bsp": "AT32F403A_407",
-    "variant": "AT32F403ARCT7"
+    "variant": "AT32F403ARCT7",
+    "extra_flags": ""
   },
   "debug": {
     "openocd_target": "at32f403axx",
     "svd_path": "AT32F403Axx_v2.svd"
   },
   "frameworks": [
-    "at32firmlib"
+    "at32firmlib", "arduino"
   ],
   "name": "AT32F403ARCT7 (96K/224K RAM. 256K Flash)",
   "upload": {

@@ -38,7 +38,9 @@ env.Append(
         join(FRAMEWORK_LIB_DIR, "drivers", "inc"),
         join(FRAMEWORK_LIB_DIR, "drivers", "src"),
         join(FRAMEWORK_LIB_DIR, "arduino", "include"),
-        join(FRAMEWORK_LIB_DIR, "arduino", "src")
+        join(FRAMEWORK_LIB_DIR, "arduino", "include", "libcore"),
+        join(FRAMEWORK_LIB_DIR, "arduino", "src"),
+        env.subst("${PROJECT_INCLUDE_DIR}"),  # place for at32f403a_407_conf.h
     ]
 )
 
