@@ -59,7 +59,9 @@ class Arterytekat32Platform(PlatformBase):
 
             if link == 'cmsis-dap' :
                 pyocd_target = debug.get("pyocd_target")
-                assert pyocd_target
+                if (pyocd_target is None) :
+                    continue
+
                 debug["tools"][link] = {
                     # "onboard": True,
                     "server": {
