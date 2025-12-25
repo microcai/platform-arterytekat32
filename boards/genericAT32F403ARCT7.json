@@ -6,14 +6,18 @@
     "mcu": "AT32F403ARCT7",
     "product_line": "AT32F403AxC",
     "bsp": "AT32F403A_407",
-    "variant": "AT32F403ARCT7"
+    "variant": "AT32F403ARCT7",
+    "extra_flags": ""
   },
   "debug": {
     "openocd_target": "at32f403axx",
-    "svd_path": "AT32F403Axx_v2.svd"
+    "pyocd_target" : "_at32f403arct7",
+    "svd_path": "AT32F403Axx_v2.svd",
+    "transport" : "swd",
+    "pack": "ArteryTek.AT32F403A_407_DFP.2.2.2.pack"
   },
   "frameworks": [
-    "at32firmlib"
+    "at32firmlib", "arduino"
   ],
   "name": "AT32F403ARCT7 (96K/224K RAM. 256K Flash)",
   "upload": {
@@ -22,6 +26,7 @@
     "protocol": "atlink",
     "protocols": [
       "cmsis-dap",
+      "cmsis-dap-v2",
       "atlink",
       "atlink_dap_v2",
       "jlink",

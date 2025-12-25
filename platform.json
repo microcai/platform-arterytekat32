@@ -23,27 +23,33 @@
             "package": "framework-at32firmlib",
             "script": "builder/frameworks/at32firmlib.py",
             "title": "ArteryTek AT32 Firmware Library"
+        },
+        "arduino":
+        {
+            "package": "framework-at32firmlib",
+            "script": "builder/frameworks/arduino.py",
+            "title": "ArteryTek AT32 Arduino Library"
         }
     },
     "packages": {
         "toolchain-gccarmnoneeabi": {
             "type": "toolchain",
             "owner": "platformio",
-            "version": ">=1.60301.0,<1.80000.0"
+            "version": ">=1.140201.0"
         },
         "framework-at32firmlib": {
             "type": "framework",
-            "version": "https://github.com/ArteryTek/framework-at32firmlib.git"
+            "version": "https://gitlab.p2sp.net:9080/pub/framework-at32firmlib.git"
         },
         "tool-openocd-at32": {
             "type": "uploader",
             "version": "https://github.com/amoxu/tool-openocd-at32.git"
         },
-        "tool-dfuutil": {
+        "tool-pyocd": {
             "type": "uploader",
             "optional": true,
             "owner": "platformio",
-            "version": "~1.11.0"
+            "version": "~2.3600.0"
         }
     }
 }

@@ -21,8 +21,6 @@ assert isdir(FRAMEWORK_LIB_DIR)
 
 FRAMEWORK_MIDDLEWARE_DIR = join(FRAMEWORK_DIR, bsp + "_Firmware_Library", "middlewares")
 
-
-
 def get_linker_script():
     ldscript = join(FRAMEWORK_LIB_DIR, "cmsis", "cm4", "device_support", "startup", "gcc",
                     "linker", product_line + "_FLASH.ld")
@@ -32,7 +30,6 @@ def get_linker_script():
 
     sys.stderr.write("Warning! Cannot find a linker script for the required board! "+ldscript)
 
-project_dir = env.subst("${PROJECT_DIR}")
 
 env.Append(
     CPPPATH=[
@@ -40,7 +37,10 @@ env.Append(
         join(FRAMEWORK_LIB_DIR, "cmsis", "cm4", "device_support"),
         join(FRAMEWORK_LIB_DIR, "drivers", "inc"),
         join(FRAMEWORK_LIB_DIR, "drivers", "src"),
-        join(project_dir, "include"),
+        join(FRAMEWORK_LIB_DIR, "arduino", "include"),
+        join(FRAMEWORK_LIB_DIR, "arduino", "include", "libcore"),
+        join(FRAMEWORK_LIB_DIR, "arduino", "src"),
+        env.subst("${PROJECT_INCLUDE_DIR}"),  # place for at32f403a_407_conf.h
     ]
 )
 
@@ -83,12 +83,24 @@ libs.append(env.BuildLibrary(
     src_filter=["+<*.c>"]
 ))
 
+libs.append(env.BuildLibrary(
+    join("$BUILD_DIR", "arduino"),
+    join(FRAMEWORK_LIB_DIR, "arduino", "src"),
+    src_filter=["+<*.c>", "+<*.cpp>"]
+))
+
+libs.append(env.BuildLibrary(
+    join("$BUILD_DIR", "arduino", "libcore"),
+    join(FRAMEWORK_LIB_DIR, "arduino", "src", "libcore"),
+    src_filter=["+<*.c>", "+<*.cpp>"]
+))
+
 middlewares = env.GetProjectOption("middlewares","")
 if(middlewares):
     for x in middlewares.split(","):
         print("Middleware %s referenced." % x)
         if isdir(join(FRAMEWORK_MIDDLEWARE_DIR, x.strip())) and exists(join(FRAMEWORK_MIDDLEWARE_DIR, x.strip())):
-            if x == "i2c_application_library": 
+            if x == "i2c_application_library":
                 env.Append(
                     CPPPATH=[
                         join(FRAMEWORK_MIDDLEWARE_DIR, x.strip())
