@@ -43,7 +43,7 @@
         },
         "tool-openocd-at32": {
             "type": "uploader",
-            "version": "https://github.com/amoxu/tool-openocd-at32.git"
+            "version": "https://github.com/microcai/tool-openocd-at32.git"
         },
         "tool-pyocd": {
             "type": "uploader",
