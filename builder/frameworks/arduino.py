@@ -11,6 +11,8 @@ mcu = board.get("build.mcu", "")
 product_line = board.get("build.product_line", "")
 bsp = board.get("build.bsp", "")
 
+variant = board.get("build.variant", "")
+
 env.SConscript("_bare.py")
 
 FRAMEWORK_DIR = platform.get_package_dir("framework-at32firmlib")
@@ -52,7 +54,8 @@ env.Append(
 
 env.Append(
     CPPDEFINES=[
-        env["BUILD_TYPE"].upper()
+        env["BUILD_TYPE"].upper(),
+        variant
     ]
 )
 
@@ -93,6 +96,49 @@ libs.append(env.BuildLibrary(
     join("$BUILD_DIR", "arduino", "libcore"),
     join(FRAMEWORK_LIB_DIR, "arduino", "src", "libcore"),
     src_filter=["+<*.c>", "+<*.cpp>"]
+))
+
+# add i2c for arduino
+env.Append(
+    CPPPATH=[
+        join(FRAMEWORK_MIDDLEWARE_DIR, "i2c_application_library")
+    ]
+)
+libs.append(env.BuildLibrary(
+    join("$BUILD_DIR", "middleware", "i2c_application_library"),
+    join(FRAMEWORK_MIDDLEWARE_DIR, "i2c_application_library"),
+    src_filter=["+<*.c>"]
+))
+
+# add usb for arduino
+env.Append(
+    CPPPATH=[
+        join(FRAMEWORK_MIDDLEWARE_DIR, "usb_drivers", "inc")
+    ]
+)
+libs.append(env.BuildLibrary(
+    join("$BUILD_DIR", "middleware", "usb_drivers"),
+    join(FRAMEWORK_MIDDLEWARE_DIR, "usb_drivers", "src"),
+    src_filter=["+<*.c>"]
+))
+
+# add usbd for arduino
+env.Append(
+    CPPPATH=[
+        join(FRAMEWORK_MIDDLEWARE_DIR, "usbd_drivers", "cdc"),
+        join(FRAMEWORK_MIDDLEWARE_DIR, "usbd_drivers", "winusb"),
+    ]
+)
+libs.append(env.BuildLibrary(
+    join("$BUILD_DIR", "middleware", "usbd_drivers", "cdc"),
+    join(FRAMEWORK_MIDDLEWARE_DIR, "usbd_drivers", "cdc"),
+    src_filter=["+<*.c>"]
+))
+
+libs.append(env.BuildLibrary(
+    join("$BUILD_DIR", "middleware", "usbd_drivers", "winusb"),
+    join(FRAMEWORK_MIDDLEWARE_DIR, "usbd_drivers", "winusb"),
+    src_filter=["+<*.c>"]
 ))
 
 middlewares = env.GetProjectOption("middlewares","")

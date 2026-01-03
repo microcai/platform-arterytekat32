@@ -13,7 +13,7 @@
     "svd_path": "AT32F405xx_v2.svd"
   },
   "frameworks": [
-    "at32firmlib"
+    "at32firmlib", "arduino"
   ],
   "name": "AT32F405RCT7 (96K/102K RAM. 256K Flash)",
   "upload": {
