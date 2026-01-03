@@ -113,12 +113,20 @@ libs.append(env.BuildLibrary(
 # add usb for arduino
 env.Append(
     CPPPATH=[
-        join(FRAMEWORK_MIDDLEWARE_DIR, "usb_drivers", "inc")
+        join(FRAMEWORK_MIDDLEWARE_DIR, "usb_drivers", "inc"),
+        join(FRAMEWORK_MIDDLEWARE_DIR, "usbd_drivers", "inc")
     ]
 )
+
 libs.append(env.BuildLibrary(
     join("$BUILD_DIR", "middleware", "usb_drivers"),
     join(FRAMEWORK_MIDDLEWARE_DIR, "usb_drivers", "src"),
+    src_filter=["+<*.c>"]
+))
+
+libs.append(env.BuildLibrary(
+    join("$BUILD_DIR", "middleware", "usbd_drivers"),
+    join(FRAMEWORK_MIDDLEWARE_DIR, "usbd_drivers", "src"),
     src_filter=["+<*.c>"]
 ))
 
