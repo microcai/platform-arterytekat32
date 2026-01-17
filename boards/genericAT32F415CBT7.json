@@ -10,7 +10,9 @@
   },
   "debug": {
     "openocd_target": "at32f415xx",
-    "svd_path": "AT32F415xx_v2.svd"
+    "svd_path": "AT32F415xx_v2.svd",
+    "pyocd_target": "_at32f415cbt7",
+    "pack": "ArteryTek.AT32F415_DFP.2.1.7.pack"
   },
   "frameworks": [
     "at32firmlib","arduino"
@@ -22,6 +24,7 @@
     "protocol": "atlink",
     "protocols": [
       "cmsis-dap",
+      "cmsis-dap-v2",
       "atlink",
       "atlink_dap_v2",
       "jlink",
