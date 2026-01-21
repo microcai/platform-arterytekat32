@@ -10,7 +10,9 @@
   },
   "debug": {
     "openocd_target": "at32f405xx",
-    "svd_path": "AT32F405xx_v2.svd"
+    "svd_path": "AT32F405xx_v2.svd",
+    "pyocd_target": "AT32F405RCT7",
+    "pack": "ArteryTek.AT32F402_405_DFP.2.1.2.pack"
   },
   "frameworks": [
     "at32firmlib", "arduino"

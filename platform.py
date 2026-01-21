@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
 import json
 import os
 from os.path import isdir, isfile, join
@@ -60,6 +61,7 @@ class Arterytekat32Platform(PlatformBase):
             if link == 'cmsis-dap' :
                 pyocd_target = debug.get("pyocd_target")
                 if (pyocd_target is None) :
+                    sys.stderr.write("Warning! pyocd_target not defined for upload protocol %s\n" % link)
                     continue
 
                 debug["tools"][link] = {
