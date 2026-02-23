@@ -18,6 +18,7 @@ env.Append(
         "-mcpu=cortex-m4",
         "-mfpu=fpv4-sp-d16",
         "-mfloat-abi=hard",
+        "-flto",
         "-save-temps=obj" # 生成中间文件供检查优化
     ],
 
@@ -39,6 +40,7 @@ env.Append(
         "-mcpu=cortex-m4",
         "-mfpu=fpv4-sp-d16",
         "-mfloat-abi=hard",
+        "-flto",
         "-Wl,-Map,%s/linkmap.map" % env.get("BUILD_DIR")
     ],
 
